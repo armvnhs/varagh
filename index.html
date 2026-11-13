@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ورق</title>
+<link href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--page:#e4e4e6;--shell:#f6f6f5;--card:#fff;--soft:#efefee;--ink:#111113;--mut:#8b8b90;--acc:#e8603c;--accs:#fbe3da;--line:#0000001a;--ok:#1a9a5a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#09090a;--shell:#151517;--card:#1f1f22;--soft:#2a2a2e;--ink:#f5f5f3;--mut:#909096;--acc:#f26b45;--accs:#3b2119;--line:#ffffff1f;--ok:#4be38e}}
+:root[data-theme="dark"]{--page:#09090a;--shell:#151517;--card:#1f1f22;--soft:#2a2a2e;--ink:#f5f5f3;--mut:#909096;--acc:#f26b45;--accs:#3b2119;--line:#ffffff1f;--ok:#4be38e}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{min-height:100vh;display:flex;align-items:center;justify-content:center;direction:rtl;text-align:right;margin:0;background:var(--page);color:var(--ink);font-family:'Estedad',Tahoma,sans-serif;line-height:1.6;padding:clamp(0px,2vw,26px)}
+.shell{width:100%;max-width:1120px;margin:0 auto;background:var(--shell);border-radius:clamp(0px,4vw,44px);padding:clamp(14px,3vw,32px)}
+button,input{font:inherit;color:inherit}
+.top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ib{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--shell);display:grid;place-items:center;cursor:pointer;font-size:17px;flex:0 0 auto}
+.logo{width:46px;height:46px;border-radius:50%;background:var(--ink);color:var(--shell);display:grid;place-items:center;font-weight:900;font-size:22px}
+.brand b{display:block;font-weight:700;line-height:1.2}.brand span{color:var(--mut);font-size:14px}
+.icon{width:20px;height:20px;display:inline-block;vertical-align:middle;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.logo .icon{width:25px;height:25px}.sp1{flex:1}
+.search{background:var(--shell);border:1px solid var(--line);border-radius:99px;padding:11px 18px;width:min(240px,100%);outline:0}
+.hero{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:26px 0 22px}
+.date{display:flex;align-items:center;gap:14px}
+.dc{width:84px;height:84px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:34px;font-weight:500}
+.dt{line-height:1.3;font-weight:500;padding-inline-end:14px;border-inline-end:1px solid var(--line)}
+.pb{background:var(--ink);color:var(--shell);border:0;border-radius:99px;padding:11px 24px;font-weight:700;cursor:pointer;white-space:nowrap}
+.pb.acc{background:var(--acc);color:#fff}
+.hello{margin-inline-start:auto;font-size:clamp(24px,4.4vw,40px);font-weight:700;line-height:1.25}
+.hello i{display:block;font-style:normal;color:var(--mut);font-weight:500}
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:900px){.bento{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.bento{grid-template-columns:1fr}.hello{margin:0}}
+.c{background:var(--card);border-radius:28px;padding:18px;min-width:0}
+.c small{color:var(--mut);display:block}
+.ring{background:var(--ink);color:var(--shell);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.ring svg{width:124px;height:124px}
+.ring small{color:inherit;opacity:.6}
+.dots{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin-top:10px}
+.dots s{aspect-ratio:1;border-radius:50%;background:var(--soft);display:block}
+.dots s.f{background:var(--acc)}
+.big{font-size:28px;font-weight:900;line-height:1.2}
+.pill{display:inline-block;border:1px solid var(--acc);color:var(--acc);border-radius:99px;padding:0 12px;font-size:13px;font-weight:700}
+.pill.dn{border-color:var(--ok);color:var(--ok)}
+.main{margin-top:14px;background:var(--card);border-radius:32px;padding:clamp(14px,2.4vw,24px)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tab{border:1px solid var(--line);background:var(--shell);border-radius:99px;padding:6px 18px;cursor:pointer;font-weight:500}
+.tab.on{background:var(--ink);color:var(--shell);border-color:var(--ink)}
+.add{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.add input{flex:1 1 130px;min-width:0;background:var(--soft);border:0;border-radius:99px;padding:11px 18px;outline:0}
+.add input:focus,.search:focus{box-shadow:0 0 0 2px var(--acc)}
+.dbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;font-weight:700;font-size:18px}
+.tr{display:flex;align-items:center;gap:12px;background:var(--soft);border-radius:20px;padding:10px 14px;margin-top:8px}
+.tr.done .tx{text-decoration:line-through;color:var(--mut)}
+.tx{flex:1}
+.ck{width:28px;height:28px;border-radius:50%;border:2px solid var(--mut);background:none;cursor:pointer;display:grid;place-items:center;font-size:14px;color:#fff;flex:0 0 auto;padding:0}
+.done .ck{background:var(--acc);border-color:var(--acc)}
+.tm{font-size:13px;background:var(--card);border-radius:99px;padding:0 10px}
+.x{background:none;border:0;color:var(--mut);cursor:pointer;font-size:16px;padding:2px 6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.t{background:var(--soft);border-radius:26px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.t h3{margin:0;font-size:17px;font-weight:700}
+.hd{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.mut{color:var(--mut);font-size:13px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sv{width:100%;height:44px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:0 11px;font-size:13px;cursor:pointer}
+.chip.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.fu{display:flex;align-items:center;gap:8px;font-size:14px}
+.fu .ck{width:22px;height:22px;font-size:11px}
+.fu.done span{text-decoration:line-through;color:var(--mut)}
+.mini{display:flex;gap:6px}
+.mini input{flex:1;min-width:0;background:var(--card);border:0;border-radius:99px;padding:6px 14px;outline:0}
+.mini button{background:var(--ink);color:var(--shell);border:0;border-radius:99px;padding:0 14px;cursor:pointer;font-weight:700}
+.late{color:var(--acc);font-weight:700}
+.empty{text-align:center;color:var(--mut);padding:28px}
+a{color:var(--acc)}
+.auth-wrap{width:min(420px,100%);margin:auto;padding:28px;background:var(--card);border-radius:28px}.auth-wrap h1{margin:0 0 8px}.auth-wrap p{color:var(--mut)}.auth-wrap input{width:100%;background:var(--soft);border:0;border-radius:18px;padding:14px;margin:5px 0;outline:0}.auth-wrap .pb{width:100%;margin-top:12px}.auth-toggle{border:0;background:none;color:var(--acc);cursor:pointer;margin-top:16px}.auth-error{color:var(--acc);min-height:24px}.account{display:flex;gap:8px;align-items:center}.account span{font-size:13px}.calendar{margin:12px 0;background:var(--soft);padding:16px;border-radius:20px}.cal-head{display:flex;align-items:center;justify-content:space-between}.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}.cal-grid button{border:0;background:transparent;border-radius:12px;padding:8px 0;cursor:pointer}.cal-grid button.selected{background:var(--acc);color:white}.cal-grid small{color:var(--mut)}.sync-error{color:var(--acc);font-size:13px;text-align:center}</style>
+</head>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><symbol id="i-paper" viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5z M15 3v5h4 M8 12h8 M8 16h8"/></symbol><symbol id="i-theme" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M4 17v3h16v-3"/></symbol><symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 17V5m-4 4 4-4 4 4M4 17v3h16v-3"/></symbol></svg>
+<div class="auth-wrap" id="auth"><h1>به ورق خوش اومدی</h1><p>برای دسترسی به کارهایت وارد حساب شو.</p><form id="authform"><input id="auth-name" placeholder="نام شما" autocomplete="name" hidden><input id="auth-email" type="email" placeholder="ایمیل" dir="ltr" autocomplete="email" required><input id="auth-password" type="password" placeholder="رمز عبور (حداقل ۸ نویسه)" dir="ltr" autocomplete="current-password" minlength="8" required><div id="auth-error" class="auth-error"></div><button class="pb acc" id="auth-submit">ورود</button></form><button class="auth-toggle" id="auth-toggle">حساب نداری؟ ثبت‌نام کن</button></div><div class="shell" id="shell" hidden>
+<div class="top">
+<button class="ib" data-a="theme" title="تم" aria-label="تغییر تم"><svg class="icon"><use href="#i-theme"/></svg></button>
+<div class="logo" aria-hidden="true"><svg class="icon"><use href="#i-paper"/></svg></div>
+<div class="brand"><b>ورق</b><span>دستیار شخصی</span></div>
+<div class="account"><span id="account-name"></span><button class="chip" data-a="logout">خروج</button></div><div class="sp1"></div>
+<input class="search" id="q" placeholder="جستجو در همه‌چیز…">
+<button class="ib" data-a="exp" title="پشتیبان" aria-label="دریافت پشتیبان"><svg class="icon"><use href="#i-download"/></svg></button>
+<button class="ib" data-a="imp" title="بازیابی" aria-label="بازیابی پشتیبان"><svg class="icon"><use href="#i-upload"/></svg></button>
+</div>
+<div class="sync-error" id="sync-error" role="status"></div><div class="hero" id="hero"></div>
+<div class="bento" id="wid"></div>
+<div class="main" id="main"><div class="tabs" id="tabs"></div><div id="app"></div></div>
+</div>
+<input type="file" id="file" accept="application/json" hidden>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+var SUPABASE_URL='https://youkoumtyartbmyhxgcn.supabase.co', SUPABASE_KEY='sb_publishable_b6aBs1bXDrjBzdp4TXyPjA_UeSdrce2';
+if(typeof supabase==='undefined'){document.getElementById('auth-error').textContent='کتابخانه اتصال بارگذاری نشد؛ اتصال اینترنت را بررسی کنید.';throw new Error('Supabase library failed to load')}
+var client=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+var KEY='frid-v1';
+var S={tasks:{},shop:[],proj:[]},tab='day',cur=iso(new Date()),Q='';
+var userName='', saveQueue=Promise.resolve(), registering=false, calendarOpen=false, currentUser=null;
+function load(){}
+function save(){if(!currentUser)return;var snapshot=JSON.parse(JSON.stringify(S)),userId=currentUser.id;saveQueue=saveQueue.then(async function(){var result=await client.from('user_data').upsert({user_id:userId,data:snapshot,updated_at:new Date().toISOString()});if(result.error)throw result.error;document.getElementById('sync-error').textContent=''}).catch(function(e){console.error(e);document.getElementById('sync-error').textContent='ذخیره انجام نشد؛ اتصال و تنظیمات پایگاه داده را بررسی کنید.'})}
+async function start(){var result=await client.auth.getUser();if(result.error||!result.data.user){currentUser=null;document.getElementById('shell').hidden=true;document.getElementById('auth').hidden=false;return}currentUser=result.data.user;userName=currentUser.user_metadata.name||currentUser.email.split('@')[0];var loaded=await client.from('user_data').select('data').eq('user_id',currentUser.id).maybeSingle();if(loaded.error){document.getElementById('auth').hidden=false;document.getElementById('auth-error').textContent='اتصال به جدول اطلاعات برقرار نشد. ابتدا کد SQL راه‌اندازی را در Supabase اجرا کنید.';return}var data=loaded.data?.data||{};S={tasks:data.tasks||{},shop:data.shop||[],proj:data.proj||[]};document.getElementById('account-name').textContent=userName;document.getElementById('auth').hidden=true;document.getElementById('shell').hidden=false;hero();render()}
+function iso(d){var m=d.getMonth()+1,x=d.getDate();return d.getFullYear()+'-'+(m<10?'0':'')+m+'-'+(x<10?'0':'')+x}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function num(s){var t=String(s).replace(/[۰-۹]/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)}).replace(/[٠-٩]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.indexOf(d)}).replace(/[,٬،\s]/g,'');var n=parseFloat(t);return isNaN(n)?null:n}
+function fm(n){return Number(n).toLocaleString('fa-IR')}
+function pf(o,k){return new Intl.DateTimeFormat('fa-IR-u-ca-persian',o).format(new Date(k+'T12:00:00'))}
+function dlabel(k){return pf({weekday:'long',day:'numeric',month:'long'},k)}
+function shift(k,n){var d=new Date(k+'T12:00:00');d.setDate(d.getDate()+n);return iso(d)}
+function left(k){return Math.round((new Date(k+'T12:00:00')-new Date(iso(new Date())+'T12:00:00'))/864e5)}
+function v(id){var e=document.getElementById(id);return e?e.value.trim():''}
+function m(s){return !Q||String(s||'').toLowerCase().indexOf(Q)>-1}
+var ST=['بریف','در حال کار','بازبینی مشتری','تحویل شد','تسویه شد'];
+
+function hero(){
+ var td=iso(new Date()),h=new Date().getHours(),g=h<12?'صبح بخیر':h<18?'روز بخیر':'عصر بخیر';
+ document.getElementById('hero').innerHTML='<div class="date"><div class="dc">'+pf({day:'numeric'},td)+'</div><div class="dt">'+pf({weekday:'long'},td)+'<br>'+pf({month:'long'},td)+'</div></div><button class="pb acc" data-a="goday">کارهای امروز ←</button><div class="hello">'+g+' 👋<i>امروز چه کاری داری؟</i></div>';
+}
+function spark(ps,col){
+ if(ps.length<2)return '';
+ var a=ps.map(function(x){return x.p}),mn=Math.min.apply(0,a),mx=Math.max.apply(0,a),r=mx-mn||1;
+ var pts=a.map(function(y,i){return (i/(a.length-1)*296+2).toFixed(1)+','+(40-(y-mn)/r*34).toFixed(1)}).join(' ');
+ return '<svg class="sv" viewBox="0 0 300 44" preserveAspectRatio="none"><polyline points="'+pts+'" fill="none" stroke="'+(col||'var(--acc)')+'" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+}
+function lastp(s){return s.prices.length?s.prices[s.prices.length-1].p:null}
+function chg(s){var n=s.prices.length;if(n<2)return null;var a=s.prices[n-2].p,b=s.prices[n-1].p;return {d:b-a,pc:(b-a)/a*100}}
+function wid(){
+ var td=iso(new Date()),L=S.tasks[td]||[],dn=L.filter(function(x){return x.done}).length,p=L.length?Math.round(dn/L.length*100):0,C=2*Math.PI*42;
+ var w='<div class="c ring"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#ffffff22" stroke-width="8"/><circle cx="50" cy="50" r="42" fill="none" stroke="var(--acc)" stroke-width="8" stroke-linecap="round" stroke-dasharray="'+(C*p/100).toFixed(1)+' '+C.toFixed(1)+'" transform="rotate(-90 50 50)"/><text x="50" y="55" text-anchor="middle" font-size="19" font-weight="700" fill="currentColor">'+fm(p)+'٪</text></svg><small>پیشرفت امروز · '+fm(dn)+' از '+fm(L.length)+'</small></div>';
+ var np=S.proj.filter(function(x){return x.due&&x.status<3&&left(x.due)>=0}).sort(function(a,b){return left(a.due)-left(b.due)})[0],N=np?left(np.due):null,d='';
+ for(var i=0;i<30;i++)d+='<s'+(N!=null&&i<Math.max(1,30-N)?' class="f"':'')+'></s>';
+ w+='<div class="c"><small>نزدیک‌ترین مهلت</small><div class="big">'+(N!=null?fm(N)+' روز':'—')+'</div><small>'+(np?esc(np.title):'پروژه فعالی با مهلت ندارید')+'</small><div class="dots">'+d+'</div></div>';
+ var best=S.shop.filter(function(s){return chg(s)}).sort(function(a,b){return chg(a).pc-chg(b).pc})[0]||S.shop[0],pr='';
+ if(best){var c=chg(best);pr='<div class="hd"><small>'+esc(best.name)+'</small>'+(c?'<span class="pill'+(c.d<0?' dn':'')+'">'+(c.d>0?'+':'')+fm(c.pc.toFixed(1))+'٪</span>':'')+'</div><div class="big">'+(lastp(best)!=null?fm(lastp(best)):'—')+'</div><small>تومان</small>'+spark(best.prices)}
+ else pr='<small>قیمت‌ها</small><div class="mut" style="margin-top:8px">هنوز کالایی ثبت نشده</div>';
+ w+='<div class="c">'+pr+'</div>';
+ var fu=0,due=0;S.proj.forEach(function(x){x.fu.forEach(function(f){if(!f.done)fu++});if(x.status<4&&x.fee)due+=x.fee});
+ w+='<div class="c"><small>پیگیری‌های باز</small><div class="big">'+fm(fu)+'</div><small style="margin-top:14px">مطالبات تسویه‌نشده</small><div class="big">'+fm(due)+'</div><small>تومان</small></div>';
+ document.getElementById('wid').innerHTML=w;
+}
+function calendar(){var d=new Date(cur+'T12:00:00'),fmt=new Intl.DateTimeFormat('en-US-u-ca-persian',{year:'numeric',month:'numeric',day:'numeric'}),parts=fmt.formatToParts(d),get=function(k){return +parts.find(function(p){return p.type===k}).value},day=get('day'),first=shift(cur,1-day),week=(new Date(first+'T12:00:00').getDay()+1)%7,h='<div class="calendar"><div class="cal-head"><button class="chip" data-a="calprev">ماه قبل</button><b>'+pf({month:'long',year:'numeric'},cur)+'</b><button class="chip" data-a="calnext">ماه بعد</button></div><div class="cal-grid">';['ش','ی','د','س','چ','پ','ج'].forEach(function(x){h+='<small>'+x+'</small>'});for(var i=0;i<week;i++)h+='<span></span>';for(var n=0;n<31;n++){var k=shift(first,n),p=fmt.formatToParts(new Date(k+'T12:00:00')),m=+p.find(function(x){return x.type==='month'}).value;if(m!==get('month'))break;h+='<button class="'+(k===cur?'selected':'')+'" data-a="calday" data-date="'+k+'">'+fm(n+1)+'</button>'}return h+'</div></div>'}
+function viewDay(){
+ var L=(S.tasks[cur]||[]).filter(function(t){return m(t.t)}).sort(function(a,b){return (a.time||'99:99')<(b.time||'99:99')?-1:1});
+ var h='<div class="dbar"><button class="ib" data-a="dp">‹</button><span>'+dlabel(cur)+(cur===iso(new Date())?' · امروز':'')+' <button class="chip" data-a="calendar">تقویم شمسی</button></span><button class="ib" data-a="dn">›</button></div>';
+ if(calendarOpen)h+=calendar();
+ h+='<div class="add"><input id="tt" placeholder="کار جدید…"><input id="tm" type="time" style="flex:0 0 130px"><button class="pb acc" data-a="addt">افزودن</button></div>';
+ if(!L.length)h+='<div class="empty">کاری برای این روز نیست</div>';
+ L.forEach(function(t){h+='<div class="tr'+(t.done?' done':'')+'"><button class="ck" data-a="tg" data-id="'+t.id+'">'+(t.done?'✓':'')+'</button>'+(t.time?'<span class="tm">'+esc(t.time)+'</span>':'')+'<span class="tx">'+esc(t.t)+'</span><button class="x" data-a="dt" data-id="'+t.id+'">✕</button></div>'});
+ return h;
+}
+function viewShop(){
+ var h='<div class="add"><input id="sn" placeholder="نام کالا"><input id="sp" inputmode="numeric" placeholder="قیمت فعلی"><input id="sg" inputmode="numeric" placeholder="قیمت هدف"><input id="su" placeholder="لینک (اختیاری)"><button class="pb acc" data-a="adds">افزودن</button></div>';
+ var L=S.shop.filter(function(s){return m(s.name)});
+ if(!L.length)return h+'<div class="empty">فهرست خرید خالی است</div>';
+ h+='<div class="grid">';
+ L.forEach(function(s){
+  var ps=s.prices,last=lastp(s),c=chg(s),low=ps.length?Math.min.apply(0,ps.map(function(x){return x.p})):null,hit=s.target&&last!=null&&last<=s.target;
+  h+='<div class="t"><div class="hd"><h3>'+esc(s.name)+'</h3><button class="x" data-a="ds" data-id="'+s.id+'">✕</button></div>';
+  h+='<div class="row"><span class="big">'+(last!=null?fm(last):'—')+'</span><span class="mut">تومان</span>'+(c?'<span class="pill'+(c.d<0?' dn':'')+'">'+(c.d>0?'▲ ':c.d<0?'▼ ':'')+fm(Math.abs(c.d))+'</span>':'')+'</div>';
+  if(hit)h+='<div><span class="pill dn">به قیمت هدف رسید — وقت خریده</span></div>';
+  h+=spark(ps)+'<div class="mut">'+(low!=null?'کمترین: '+fm(low)+' · ':'')+(s.target?'هدف: '+fm(s.target)+' · ':'')+fm(ps.length)+' بار ثبت</div>';
+  if(s.url)h+='<a href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer">فروشگاه ↗</a>';
+  h+='<div class="mini"><input id="np-'+s.id+'" inputmode="numeric" placeholder="قیمت امروز"><button data-a="addp" data-id="'+s.id+'">ثبت</button></div></div>';
+ });
+ return h+'</div>';
+}
+function parsePersianDate(value){if(!value)return '';var digits=value.replace(/[۰-۹]/g,function(x){return '۰۱۲۳۴۵۶۷۸۹'.indexOf(x)}).replace(/[٠-٩]/g,function(x){return '٠١٢٣٤٥٦٧٨٩'.indexOf(x)});var m=digits.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})$/);if(!m)return null;var y=+m[1],month=+m[2],day=+m[3];if(y<1200||y>1600||month<1||month>12||day<1||day>31)return null;var dt=new Date(y+621,2,18,12),fmt=new Intl.DateTimeFormat('en-US-u-ca-persian',{year:'numeric',month:'numeric',day:'numeric'});for(var i=0;i<370;i++,dt.setDate(dt.getDate()+1)){var parts=fmt.formatToParts(dt),get=function(k){return +parts.find(function(p){return p.type===k}).value};if(get('year')===y&&get('month')===month&&get('day')===day)return iso(dt)}return null}
+function viewProj(){
+ var h='<div class="add"><input id="pt" placeholder="عنوان پروژه"><input id="pc" placeholder="مشتری"><input id="pd" inputmode="numeric" placeholder="مهلت شمسی: ۱۴۰۵/۰۸/۲۲" style="flex:0 0 180px"><input id="pf" inputmode="numeric" placeholder="مبلغ قرارداد"><button class="pb acc" data-a="addj">افزودن</button></div>';
+ var L=S.proj.filter(function(p){return m(p.title)||m(p.client)});
+ if(!L.length)return h+'<div class="empty">پروژه‌ای ثبت نشده</div>';
+ h+='<div class="grid">';
+ L.forEach(function(p){
+  var dl=p.due?left(p.due):null,late=dl!=null&&dl<0&&p.status<3;
+  h+='<div class="t"><div class="hd"><h3>'+esc(p.title)+'</h3><button class="x" data-a="dj" data-id="'+p.id+'">✕</button></div>';
+  h+='<div class="mut">'+(p.client?esc(p.client):'بدون مشتری')+(p.fee?' · '+fm(p.fee)+' تومان':'')+'</div>';
+  if(p.due)h+='<div class="'+(late?'late':'mut')+'">مهلت: '+dlabel(p.due)+(p.status<3?(dl<0?' · '+fm(-dl)+' روز دیرکرد':dl===0?' · امروز':' · '+fm(dl)+' روز مانده'):'')+'</div>';
+  h+='<div class="chips">'+ST.map(function(s,i){return '<span class="chip'+(p.status===i?' on':'')+'" data-a="st" data-id="'+p.id+'" data-i="'+i+'">'+s+'</span>'}).join('')+'</div>';
+  p.fu.forEach(function(f){h+='<div class="fu'+(f.done?' done':'')+'"><button class="ck" data-a="tf" data-id="'+p.id+'" data-f="'+f.id+'">'+(f.done?'✓':'')+'</button><span style="flex:1">'+esc(f.t)+'</span><button class="x" data-a="df" data-id="'+p.id+'" data-f="'+f.id+'">✕</button></div>'});
+  h+='<div class="mini"><input id="nf-'+p.id+'" placeholder="پیگیری جدید…"><button data-a="addf" data-id="'+p.id+'">+</button></div></div>';
+ });
+ return h+'</div>';
+}
+function render(){
+ wid();
+ var T=[['day','برنامه روزانه'],['shop','فهرست خرید'],['proj','پروژه‌ها']];
+ document.getElementById('tabs').innerHTML=T.map(function(t){return '<button class="tab'+(tab===t[0]?' on':'')+'" data-tab="'+t[0]+'">'+t[1]+'</button>'}).join('');
+ document.getElementById('app').innerHTML=tab==='day'?viewDay():tab==='shop'?viewShop():viewProj();
+}
+function P(id){return S.proj.find(function(x){return x.id===id})}
+function Sh(id){return S.shop.find(function(x){return x.id===id})}
+var A={
+ calendar:function(){calendarOpen=!calendarOpen},calday:function(e){cur=e.dataset.date;calendarOpen=false},calprev:function(){var d=new Intl.DateTimeFormat('en-US-u-ca-persian',{day:'numeric'}).format(new Date(cur+'T12:00:00'));cur=shift(cur,-Number(d))},calnext:function(){var d=new Intl.DateTimeFormat('en-US-u-ca-persian',{day:'numeric'}).format(new Date(cur+'T12:00:00'));cur=shift(cur,32-Number(d));var n=new Intl.DateTimeFormat('en-US-u-ca-persian',{day:'numeric'}).format(new Date(cur+'T12:00:00'));cur=shift(cur,1-Number(n))},
+ goday:function(){tab='day';cur=iso(new Date());setTimeout(function(){document.getElementById('main').scrollIntoView({behavior:'smooth'})},0)},
+ dp:function(){cur=shift(cur,-1)},dn:function(){cur=shift(cur,1)},
+ addt:function(){var t=v('tt');if(!t)return;(S.tasks[cur]=S.tasks[cur]||[]).push({id:uid(),t:t,time:v('tm'),done:false})},
+ tg:function(e){var t=(S.tasks[cur]||[]).find(function(x){return x.id===e.dataset.id});if(t)t.done=!t.done},
+ dt:function(e){S.tasks[cur]=(S.tasks[cur]||[]).filter(function(x){return x.id!==e.dataset.id})},
+ adds:function(){var n=v('sn');if(!n)return;var p=num(v('sp')),o={id:uid(),name:n,target:num(v('sg')),url:/^https?:\/\//i.test(v('su'))?v('su'):'',prices:[]};if(p!=null)o.prices.push({d:iso(new Date()),p:p});S.shop.unshift(o)},
+ addp:function(e){var p=num(v('np-'+e.dataset.id)),s=Sh(e.dataset.id);if(p!=null&&s)s.prices.push({d:iso(new Date()),p:p})},
+ ds:function(e){S.shop=S.shop.filter(function(x){return x.id!==e.dataset.id})},
+ addj:function(){var t=v('pt'),due=parsePersianDate(v('pd'));if(!t)return;if(due===null){alert('تاریخ شمسی معتبر وارد کنید؛ برای نمونه ۱۴۰۵/۰۸/۲۲');return}S.proj.unshift({id:uid(),title:t,client:v('pc'),due:due,fee:num(v('pf')),status:0,fu:[]})},
+ st:function(e){var p=P(e.dataset.id);if(p)p.status=+e.dataset.i},
+ addf:function(e){var t=v('nf-'+e.dataset.id),p=P(e.dataset.id);if(t&&p)p.fu.push({id:uid(),t:t,done:false})},
+ tf:function(e){var p=P(e.dataset.id),f=p&&p.fu.find(function(x){return x.id===e.dataset.f});if(f)f.done=!f.done},
+ df:function(e){var p=P(e.dataset.id);if(p)p.fu=p.fu.filter(function(x){return x.id!==e.dataset.f})},
+ dj:function(e){if(confirm('این پروژه حذف شود؟'))S.proj=S.proj.filter(function(x){return x.id!==e.dataset.id})}
+};
+document.addEventListener('click',function(ev){
+ var tb=ev.target.closest('[data-tab]');if(tb){tab=tb.dataset.tab;render();return}
+ var e=ev.target.closest('[data-a]');if(!e)return;var a=e.dataset.a;
+ if(a==='logout'){saveQueue.then(function(){return client.auth.signOut()}).then(start);return}
+ if(a==='theme'){var r=document.documentElement,d=r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');r.dataset.theme=d==='dark'?'light':'dark';return}
+ if(a==='exp'){var b=new Blob([JSON.stringify(S)],{type:'application/json'}),l=document.createElement('a');l.href=URL.createObjectURL(b);l.download='varagh-backup.json';l.click();return}
+ if(a==='imp'){document.getElementById('file').click();return}
+ if(A[a]){A[a](e);save();render()}
+});
+document.addEventListener('keydown',function(ev){
+ if(ev.key!=='Enter')return;var r=ev.target.closest('.add,.mini');if(!r)return;var b=r.querySelector('button');if(b)b.click()
+});
+document.getElementById('q').addEventListener('input',function(ev){Q=ev.target.value.trim().toLowerCase();render()});
+document.getElementById('file').addEventListener('change',function(ev){
+ var f=ev.target.files[0];if(!f)return;var r=new FileReader();
+ r.onload=function(){try{var o=JSON.parse(r.result);S.tasks=o.tasks||{};S.shop=o.shop||[];S.proj=o.proj||[];save();render()}catch(e){alert('فایل معتبر نیست')}};
+ r.readAsText(f);ev.target.value='';
+});
+document.getElementById('auth-toggle').onclick=function(){registering=!registering;document.getElementById('auth-name').hidden=!registering;document.getElementById('auth-name').required=registering;document.getElementById('auth-submit').textContent=registering?'ساخت حساب':'ورود';this.textContent=registering?'حساب داری؟ وارد شو':'حساب نداری؟ ثبت‌نام کن';document.getElementById('auth-error').textContent=''};
+document.getElementById('authform').onsubmit=async function(e){e.preventDefault();var error=document.getElementById('auth-error');error.textContent='';var email=document.getElementById('auth-email').value.trim(),password=document.getElementById('auth-password').value,name=document.getElementById('auth-name').value.trim();try{var r=registering?await client.auth.signUp({email:email,password:password,options:{data:{name:name},emailRedirectTo:location.href.split('#')[0]}}):await client.auth.signInWithPassword({email:email,password:password});if(r.error){error.textContent='ورود یا ثبت‌نام انجام نشد: '+r.error.message;return}document.getElementById('auth-password').value='';if(registering&&!r.data.session){error.textContent='لینک تأیید را در ایمیل خود باز کنید، سپس وارد شوید.';return}await start()}catch(e){error.textContent='اتصال به Supabase برقرار نشد.'}};
+start();
+</script>
+</body>
+</html>
