@@ -101,7 +101,7 @@ body{min-height:100dvh;align-items:center}
 }
 
 .shell{min-height:min(700px,100dvh);background:color-mix(in srgb,var(--shell) 80%,transparent);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
-body::before,body::after{content:"";position:fixed;z-index:-1;width:46vmax;height:46vmax;border-radius:50%;filter:blur(90px);opacity:.22;pointer-events:none;animation:float 22s ease-in-out infinite alternate}
+body::before,body::after{content:"";position:fixed;z-index:-1;width:46vmax;height:46vmax;border-radius:50%;filter:blur(90px);opacity:.14;pointer-events:none;animation:float 22s ease-in-out infinite alternate}
 body::before{background:var(--acc);top:-18vmax;left:-12vmax}
 body::after{background:#6c7cff;bottom:-20vmax;right:-10vmax;animation-delay:-8s}
 @keyframes float{to{transform:translate(6vmax,4vmax) scale(1.12)}}
@@ -134,6 +134,10 @@ dialog .row{margin-top:18px}
 @keyframes fade{from{opacity:0}}
 @media(max-width:600px){.hero{flex-direction:column;align-items:stretch}.hmeta{margin:0;width:100%;justify-content:space-between}.dc{width:46px;height:46px;font-size:19px}.pop{width:min(250px,calc(100vw - 48px))}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+.calpop{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:16px;background:#0006;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.calpop.open{opacity:1;visibility:visible}
+.calpop .calendar{width:min(320px,100%);margin:0;background:var(--card);box-shadow:0 30px 80px -20px #0008;border-radius:26px;padding:16px}
+.calpop .cal-head{margin-bottom:8px}.calpop .cal-grid button{padding:7px 0;font-size:14px}
 </style>
 </head>
 <body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><symbol id="i-gear" viewBox="0 0 24 24"><path d="M4 7h9m5 0h2M4 17h2m5 0h9"/><circle cx="15.5" cy="7" r="2.5"/><circle cx="8.5" cy="17" r="2.5"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 4v3"/></symbol><symbol id="i-enter" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5m5 5H3M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol><symbol id="i-exit" viewBox="0 0 24 24"><path d="M10 17l-5-5 5-5m-5 5h12M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5"/></symbol><symbol id="i-paper" viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5z M15 3v5h4 M8 12h8 M8 16h8"/></symbol><symbol id="i-theme" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M4 17v3h16v-3"/></symbol><symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 17V5m-4 4 4-4 4 4M4 17v3h16v-3"/></symbol></svg>
@@ -148,6 +152,7 @@ dialog .row{margin-top:18px}
 <div class="main" id="main"><div class="tabs" id="tabs"></div><div class="form-error" id="form-error" role="alert"></div><div id="app"></div></div>
 </div>
 
+<div class="calpop" id="calpop"></div>
 <dialog id="dlg"><p id="dlg-t" style="margin:0;font-weight:600"></p><div class="row"><button class="pb acc" id="dlg-y">حذف</button><button class="pb" id="dlg-n" style="background:var(--soft);color:var(--ink)">انصراف</button></div></dialog>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -205,14 +210,13 @@ function calendar(){var d=new Date(cur+'T12:00:00'),fmt=new Intl.DateTimeFormat(
 function viewDay(){
  var L=(S.tasks[cur]||[]).filter(function(t){return m(t.t)}).sort(function(a,b){return (a.time||'99:99')<(b.time||'99:99')?-1:1});
  var h='<div class="dbar"><button class="ib" data-a="dp">‹</button><span>'+dlabel(cur)+(cur===iso(new Date())?' · امروز':'')+' <button class="chip" data-a="calendar">تقویم شمسی</button></span><button class="ib" data-a="dn">›</button></div>';
- if(calendarOpen)h+=calendar();
- h+='<div class="add"><input id="tt" placeholder="کار جدید…"><input id="tm" type="time" style="flex:0 0 130px"><button class="pb acc" data-a="addt">افزودن</button></div>';
+  h+='<div class="add"><input id="tt" placeholder="کار جدید…"><input id="tm" type="time" style="flex:0 0 130px"><button class="pb acc" data-a="addt">افزودن</button></div>';
  if(!L.length)h+='<div class="empty">کاری برای این روز نیست</div>';
  L.forEach(function(t){h+='<div class="tr'+(t.done?' done':'')+'"><button class="ck" data-a="tg" data-id="'+t.id+'">'+(t.done?'✓':'')+'</button>'+(t.time?'<span class="tm">'+esc(t.time)+'</span>':'')+'<span class="tx">'+esc(t.t)+'</span><button class="x" data-a="dt" data-id="'+t.id+'">✕</button></div>'});
  return h;
 }
 function viewShop(){
- var h='<div class="add"><input id="sn" placeholder="نام کالا"><input id="su" placeholder="لینک محصول در دیجی‌کالا" style="flex:2 1 220px;direction:ltr;text-align:left"><button class="pb acc" data-a="adds">افزودن</button></div>';
+ var h='<div class="add"><input id="sn" placeholder="نام کالا"><input id="su" placeholder="لینک محصول (هر فروشگاهی)" style="flex:2 1 220px;direction:ltr;text-align:left"><button class="pb acc" data-a="adds">افزودن</button></div>';
  var L=S.shop.filter(function(s){return m(s.name)});
  if(!L.length)return h+'<div class="empty">فهرست خرید خالی است</div>';
  h+='<div class="grid">';
@@ -221,7 +225,7 @@ function viewShop(){
   h+='<div class="t"><div class="hd"><h3>'+esc(s.name)+'</h3><button class="x" data-a="ds" data-id="'+s.id+'">✕</button></div>';
   h+='<div class="row"><span class="big">'+(last!=null?fm(last):'—')+'</span><span class="mut">تومان</span>'+(c?'<span class="pill'+(c.d<0?' dn':'')+'">'+(c.d>0?'▲ ':c.d<0?'▼ ':'')+fm(Math.abs(c.d))+'</span>':'')+'</div>';
   h+=spark(ps)+'<div class="mut">'+(low!=null?'کمترین: '+fm(low)+' · ':'')+fm(ps.length)+' بار ثبت</div>';
-  if(s.url)h+='<a href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer">دیجی‌کالا ↗</a>';
+  if(s.url)h+='<a href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer">فروشگاه ↗</a>';
   h+='<div class="mini"><input id="np-'+s.id+'" inputmode="numeric" placeholder="قیمت امروز"><button data-a="addp" data-id="'+s.id+'">ثبت</button></div></div>';
  });
  return h+'</div>';
@@ -283,23 +287,39 @@ document.getElementById('auth-toggle').onclick=function(){registering=!registeri
 document.getElementById('authform').onsubmit=async function(e){e.preventDefault();var error=document.getElementById('auth-error');error.textContent='';var email=document.getElementById('auth-email').value.trim(),password=document.getElementById('auth-password').value,name=document.getElementById('auth-name').value.trim();try{var r=registering?await client.auth.signUp({email:email,password:password,options:{data:{name:name},emailRedirectTo:location.href.split('#')[0]}}):await client.auth.signInWithPassword({email:email,password:password});if(r.error){error.textContent='ورود یا ثبت‌نام انجام نشد: '+r.error.message;return}document.getElementById('auth-password').value='';if(registering&&!r.data.session){error.textContent='لینک تأیید را در ایمیل خود باز کنید، سپس وارد شوید.';return}await start()}catch(e){error.textContent='اتصال به Supabase برقرار نشد.'}};
 
 function toast(t,k){var e=document.getElementById('toast');if(!e){e=document.createElement('div');e.id='toast';e.setAttribute('role','status');document.body.appendChild(e)}e.textContent=t;e.className='show'+(k==='err'?' err':'');clearTimeout(e._t);e._t=setTimeout(function(){e.className=''},3500)}
-async function dkPrice(id){var r=await fetch('https://api.digikala.com/v2/product/'+id+'/');if(!r.ok)throw new Error('http');var j=await r.json(),dv=j.data.product.default_variant;if(!dv)throw new Error('unavailable');return Math.round(dv.price.selling_price/10)}
+var PXU=[function(u){return 'https://corsproxy.io/?url='+encodeURIComponent(u)},function(u){return 'https://api.allorigins.win/raw?url='+encodeURIComponent(u)},function(u){return 'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(u)}];
+async function ft(u){var c=new AbortController(),t=setTimeout(function(){c.abort()},9000);try{var r=await fetch(u,{signal:c.signal});if(!r.ok)throw 0;return await r.text()}finally{clearTimeout(t)}}
+async function pget(u,json){var T=[];
+ if(!window._nofn)T.push(async function(){var r=await client.functions.invoke('price',{body:{url:u}});if(r.error||typeof r.data!=='string'){if(r.error&&r.error.context&&r.error.context.status===404)window._nofn=true;throw 0}return r.data});
+ T.push(function(){return ft(u)});PXU.forEach(function(f){T.push(function(){return ft(f(u))})});
+ for(var i=0;i<T.length;i++){try{var x=await T[i]();if(json)return JSON.parse(x);if(x.length>300)return x}catch(e){}}
+ throw new Error('net')}
+function dkId(u){var m=String(u).match(/dkp-(\d+)/);return m&&m[1]}
+async function dkPrice(id){var j=await pget('https://api.digikala.com/v2/product/'+id+'/',true),dv=j.data.product.default_variant;if(!dv)throw new Error('unavailable');return Math.round(dv.price.selling_price/10)}
+function toT(n,c){return /IRR|RIAL|ریال/i.test(c||'')?Math.round(n/10):Math.round(n)}
+function parsePrice(html){var cand=[];
+ html.replace(/<script[^>]*ld\+json[^>]*>([\s\S]*?)<\/script>/gi,function(_,t){try{(function w(o){if(!o||typeof o!=='object')return;if(Array.isArray(o))return o.forEach(w);if(o.offers)[].concat(o.offers).forEach(function(x){if(x&&typeof x==='object'){var sp=x.priceSpecification||{},p=x.price!=null?x.price:x.lowPrice!=null?x.lowPrice:sp.price;if(p!=null)cand.push([p,x.priceCurrency||sp.priceCurrency])}});for(var k in o)w(o[k])})(JSON.parse(t))}catch(e){}return ''});
+ var m=html.match(/(?:product:price:amount|og:price:amount)["'][^>]*?content=["']([^"']+)/i)||html.match(/content=["']([^"']+)["'][^>]*?(?:product:price:amount|og:price:amount)/i)||html.match(/itemprop=["']price["'][^>]*?content=["']([^"']+)/i),cu=html.match(/(?:product:price:currency|og:price:currency)["'][^>]*?content=["']([^"']+)/i);
+ if(m)cand.push([m[1],cu&&cu[1]]);
+ for(var i=0;i<cand.length;i++){var n=num(cand[i][0]);if(n>0)return toT(n,cand[i][1])}
+ throw new Error('no price')}
+async function getPrice(s){var id=s.dk||dkId(s.url);if(id){try{return await dkPrice(id)}catch(e){if(!s.url)throw e}}return parsePrice(await pget(s.url,false))}
 var busy=false;
 async function refreshAll(force){
  if(busy)return;busy=true;var td=iso(new Date()),ok=0,fail=0,hits=[];
- for(var i=0;i<S.shop.length;i++){var s=S.shop[i];if(!s.dk)continue;
+ for(var i=0;i<S.shop.length;i++){var s=S.shop[i];if(!s.dk&&!s.url)continue;
   if(!force&&s.chk&&Date.now()-s.chk<18e5)continue;
-  try{var p=await dkPrice(s.dk),l=s.prices[s.prices.length-1];
+  try{var p=await getPrice(s),l=s.prices[s.prices.length-1];
    var old=l?l.p:null;if(l&&l.d===td)l.p=p;else s.prices.push({d:td,p:p});
    s.chk=Date.now();ok++;if(old!=null&&old!==p)hits.push(s.name+(p>old?' گران‌تر شد ▲':' ارزان‌تر شد ▼'))}catch(e){fail++}}
  busy=false;
  if(ok){save();render()}
  if(hits.length)toast('🔔 '+hits.join('، '));
- else if(force)toast(fail?'اتصال به دیجی‌کالا ممکن نشد؛ قیمت را دستی ثبت کن':ok?'قیمت‌ها بروز شد ✓':'کالایی با لینک دیجی‌کالا نداری')}
+ else if(force)toast(fail?'خواندن خودکار قیمت ممکن نشد (سایت دسترسی را بسته)؛ قیمت را دستی ثبت کن':ok?'قیمت‌ها بروز شد ✓':'کالایی با لینک نداری')}
 var _vs=viewShop;
 viewShop=function(){return _vs().replace('data-a="adds">افزودن</button></div>','data-a="adds">افزودن</button><button class="pb" data-a="refresh">بروزرسانی زنده</button></div>')};
 var _ad=A.adds;
-A.adds=function(e){var u=v('su'),d=u.match(/^https?:\/\/(www\.)?digikala\.com\/\S*dkp-(\d+)/i);if(!d)return showFormError('لینک محصول دیجی‌کالا را وارد کنید (آدرسی که dkp- دارد).','su');var r=_ad(e);if(r===false)return r;S.shop[0].dk=d[2];S.shop[0].url=u;setTimeout(function(){refreshAll(true)},50)};
+A.adds=function(e){var u=v('su');if(!/^https?:\/\/\S+\.\S+/i.test(u))return showFormError('لینک کامل محصول را وارد کنید (با https://).','su');var r=_ad(e);if(r===false)return r;S.shop[0].url=u;var d=dkId(u);if(d)S.shop[0].dk=d;setTimeout(function(){refreshAll(true)},50)};
 A.refresh=function(){refreshAll(true)};
 var _st=start;
 start=async function(){_first=true;await _st();if(currentUser)document.getElementById('account-mail').textContent=currentUser.email;if(currentUser){refreshAll(false);if(!window._pi)window._pi=setInterval(function(){refreshAll(false)},18e5)}};
@@ -309,7 +329,7 @@ var RM=matchMedia('(prefers-reduced-motion: reduce)').matches,_first=true,_rk=''
 function ask(msg){return new Promise(function(res){var d=document.getElementById('dlg');document.getElementById('dlg-t').textContent=msg;document.getElementById('dlg-y').onclick=function(){d.close();res(true)};document.getElementById('dlg-n').onclick=function(){d.close();res(false)};d.oncancel=function(){res(false)};d.showModal()})}
 A.dj=function(e){var id=e.dataset.id;ask('این پروژه حذف شود؟').then(function(ok){if(ok){S.proj=S.proj.filter(function(x){return x.id!==id});save();render();toast('پروژه حذف شد')}});return false};
 var _r=render;
-render=function(){_r();if(!window.gsap||RM)return;var k=tab+'|'+cur;
+render=function(){_r();var cp=document.getElementById('calpop');if(calendarOpen)cp.innerHTML=calendar();cp.classList.toggle('open',calendarOpen);if(!window.gsap||RM)return;var k=tab+'|'+cur;
  if(_first){_first=false;
   gsap.from('.shell',{y:26,opacity:0,scale:.985,duration:.8,ease:'power3.out',clearProps:'all'});
   gsap.from('#hero>*',{y:14,opacity:0,duration:.6,stagger:.08,delay:.15,ease:'power3.out',clearProps:'all'});
@@ -319,6 +339,9 @@ render=function(){_r();if(!window.gsap||RM)return;var k=tab+'|'+cur;
 (function(){var b=document.querySelector('[data-a=settings]'),p=document.getElementById('pop');function set(o){p.classList.toggle('open',o);b.setAttribute('aria-expanded',o)}
 document.addEventListener('click',function(e){if(e.target.closest('[data-a=settings]')){set(!p.classList.contains('open'));return}if(!e.target.closest('#pop')||e.target.closest('[data-a=logout]'))set(false)});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false)})})();
+
+document.getElementById('calpop').addEventListener('click',function(e){if(e.target.id==='calpop'){calendarOpen=false;render()}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&calendarOpen){calendarOpen=false;render()}});
 
 start();
 </script>
