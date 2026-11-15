@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e8603c">
 <title>ورق</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Crect%20width%3D%2724%27%20height%3D%2724%27%20rx%3D%277%27%20fill%3D%27%23e8603c%27/%3E%3Cpath%20d%3D%27M7%204.5h6.5l3.5%203.5v11.5H7zM13.5%204.5V8H17M9.5%2012.5h5M9.5%2015.5h5%27%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-width%3D%271.6%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27/%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -138,6 +139,14 @@ dialog .row{margin-top:18px}
 .calpop.open{opacity:1;visibility:visible}
 .calpop .calendar{width:min(320px,100%);margin:0;background:var(--card);box-shadow:0 30px 80px -20px #0008;border-radius:26px;padding:16px}
 .calpop .cal-head{margin-bottom:8px}.calpop .cal-grid button{padding:7px 0;font-size:14px}
+.hd h3{flex:1}
+#pd{width:min(420px,calc(100% - 32px))}
+.pd-h{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.pd-st{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:14px 0}
+.pd-st div{background:var(--soft);border-radius:16px;padding:10px 12px}.pd-st small{display:block;color:var(--mut);font-size:12px}.pd-st b{font-weight:600}
+.bc{width:100%;height:auto;margin-top:8px}
+.pd-l{max-height:150px;overflow:auto;display:flex;flex-direction:column;gap:4px;font-size:13px}
+.pd-l div{display:flex;justify-content:space-between;padding:6px 10px;border-radius:12px;background:var(--soft)}
 </style>
 </head>
 <body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><symbol id="i-gear" viewBox="0 0 24 24"><path d="M4 7h9m5 0h2M4 17h2m5 0h9"/><circle cx="15.5" cy="7" r="2.5"/><circle cx="8.5" cy="17" r="2.5"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 4v3"/></symbol><symbol id="i-enter" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5m5 5H3M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol><symbol id="i-exit" viewBox="0 0 24 24"><path d="M10 17l-5-5 5-5m-5 5h12M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5"/></symbol><symbol id="i-paper" viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5z M15 3v5h4 M8 12h8 M8 16h8"/></symbol><symbol id="i-theme" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M4 17v3h16v-3"/></symbol><symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 17V5m-4 4 4-4 4 4M4 17v3h16v-3"/></symbol></svg>
@@ -145,13 +154,14 @@ dialog .row{margin-top:18px}
 <div class="top">
 <div class="logo" aria-hidden="true"><svg class="icon"><use href="#i-paper"/></svg></div>
 <div class="brand"><b>ورق</b><span>دستیار شخصی</span></div>
-<div class="sp1"></div><input class="search" id="q" placeholder="جستجو در همه‌چیز…"><div class="set"><button class="ib" data-a="settings" aria-label="تنظیمات" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="#i-gear"/></svg></button><div class="pop" id="pop"><div class="pop-u"><div class="account-avatar"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg></div><div><b id="account-name"></b><small id="account-mail"></small></div></div><button class="pop-i" data-a="theme"><svg class="icon" aria-hidden="true"><use id="theme-icon" href="#i-moon"/></svg><span id="theme-label">حالت تیره</span></button><button class="pop-i" data-a="logout"><svg class="icon" aria-hidden="true"><use href="#i-exit"/></svg><span>خروج از حساب</span></button></div></div>
+<div class="sp1"></div><input class="search" id="q" placeholder="جستجو در همه‌چیز…"><div class="set"><button class="ib" data-a="settings" aria-label="تنظیمات" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="#i-gear"/></svg></button><div class="pop" id="pop"><div class="pop-u"><div class="account-avatar"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg></div><div><b id="account-name"></b><small id="account-mail"></small></div></div><button class="pop-i" data-a="theme"><svg class="icon" aria-hidden="true"><use id="theme-icon" href="#i-moon"/></svg><span id="theme-label">حالت تیره</span></button><button class="pop-i" data-a="export"><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg><span>دانلود پشتیبان</span></button><button class="pop-i" data-a="import"><svg class="icon" aria-hidden="true"><use href="#i-upload"/></svg><span>بازگردانی از فایل</span></button><input type="file" id="imp" accept="application/json,.json" hidden><button class="pop-i" data-a="logout"><svg class="icon" aria-hidden="true"><use href="#i-exit"/></svg><span>خروج از حساب</span></button></div></div>
 </div>
 <div class="sync-error" id="sync-error" role="status"></div><div class="hero" id="hero"></div>
 <div class="bento" id="wid"></div>
 <div class="main" id="main"><div class="tabs" id="tabs"></div><div class="form-error" id="form-error" role="alert"></div><div id="app"></div></div>
 </div>
 
+<dialog id="pd"><div id="pd-body"></div></dialog>
 <div class="calpop" id="calpop"></div>
 <dialog id="dlg"><p id="dlg-t" style="margin:0;font-weight:600"></p><div class="row"><button class="pb acc" id="dlg-y">حذف</button><button class="pb" id="dlg-n" style="background:var(--soft);color:var(--ink)">انصراف</button></div></dialog>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -224,7 +234,7 @@ function viewShop(){
   var ps=s.prices,last=lastp(s),c=chg(s),low=ps.length?Math.min.apply(0,ps.map(function(x){return x.p})):null,hit=s.target&&last!=null&&last<=s.target;
   h+='<div class="t"><div class="hd"><h3>'+esc(s.name)+'</h3><button class="x" data-a="ds" data-id="'+s.id+'">✕</button></div>';
   h+='<div class="row"><span class="big">'+(last!=null?fm(last):'—')+'</span><span class="mut">تومان</span>'+(c?'<span class="pill'+(c.d<0?' dn':'')+'">'+(c.d>0?'▲ ':c.d<0?'▼ ':'')+fm(Math.abs(c.d))+'</span>':'')+'</div>';
-  h+=spark(ps)+'<div class="mut">'+(low!=null?'کمترین: '+fm(low)+' · ':'')+fm(ps.length)+' بار ثبت</div>';
+  h+=spark(ps)+'<div class="mut">'+(low!=null?'کمترین: '+fm(low)+' · ':'')+fm(ps.length)+' بار ثبت'+(s.chk?' · بروز شد '+ago(s.chk):'')+'</div>';
   if(s.url)h+='<a href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer">فروشگاه ↗</a>';
   h+='<div class="mini"><input id="np-'+s.id+'" inputmode="numeric" placeholder="قیمت امروز"><button data-a="addp" data-id="'+s.id+'">ثبت</button></div></div>';
  });
@@ -317,7 +327,7 @@ async function refreshAll(force){
  if(hits.length)toast('🔔 '+hits.join('، '));
  else if(force)toast(fail?'خواندن خودکار قیمت ممکن نشد (سایت دسترسی را بسته)؛ قیمت را دستی ثبت کن':ok?'قیمت‌ها بروز شد ✓':'کالایی با لینک نداری')}
 var _vs=viewShop;
-viewShop=function(){return _vs().replace('data-a="adds">افزودن</button></div>','data-a="adds">افزودن</button><button class="pb" data-a="refresh">بروزرسانی زنده</button></div>')};
+viewShop=function(){return _vs().replace('data-a="adds">افزودن</button></div>','data-a="adds">افزودن</button><button class="pb" data-a="refresh">بروزرسانی زنده</button></div>').replace(/<button class="x" data-a="ds" data-id="(\w+)">/g,'<button class="x" data-a="detail" data-id="$1" title="نمودار و آمار">📈</button><button class="x" data-a="ds" data-id="$1">')};
 var _ad=A.adds;
 A.adds=function(e){var u=v('su');if(!/^https?:\/\/\S+\.\S+/i.test(u))return showFormError('لینک کامل محصول را وارد کنید (با https://).','su');var r=_ad(e);if(r===false)return r;S.shop[0].url=u;var d=dkId(u);if(d)S.shop[0].dk=d;setTimeout(function(){refreshAll(true)},50)};
 A.refresh=function(){refreshAll(true)};
@@ -326,7 +336,7 @@ start=async function(){_first=true;await _st();if(currentUser)document.getElemen
 
 
 var RM=matchMedia('(prefers-reduced-motion: reduce)').matches,_first=true,_rk='',MSG={addt:'کار اضافه شد ✓',addj:'پروژه اضافه شد ✓'};
-function ask(msg){return new Promise(function(res){var d=document.getElementById('dlg');document.getElementById('dlg-t').textContent=msg;document.getElementById('dlg-y').onclick=function(){d.close();res(true)};document.getElementById('dlg-n').onclick=function(){d.close();res(false)};d.oncancel=function(){res(false)};d.showModal()})}
+function ask(msg,yes){return new Promise(function(res){var d=document.getElementById('dlg');document.getElementById('dlg-t').textContent=msg;document.getElementById('dlg-y').textContent=yes||'حذف';document.getElementById('dlg-y').onclick=function(){d.close();res(true)};document.getElementById('dlg-n').onclick=function(){d.close();res(false)};d.oncancel=function(){res(false)};d.showModal()})}
 A.dj=function(e){var id=e.dataset.id;ask('این پروژه حذف شود؟').then(function(ok){if(ok){S.proj=S.proj.filter(function(x){return x.id!==id});save();render();toast('پروژه حذف شد')}});return false};
 var _r=render;
 render=function(){_r();var cp=document.getElementById('calpop');if(calendarOpen)cp.innerHTML=calendar();cp.classList.toggle('open',calendarOpen);if(!window.gsap||RM)return;var k=tab+'|'+cur;
@@ -342,6 +352,26 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false)})
 
 document.getElementById('calpop').addEventListener('click',function(e){if(e.target.id==='calpop'){calendarOpen=false;render()}});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&calendarOpen){calendarOpen=false;render()}});
+
+
+function ago(t){var m=Math.round((Date.now()-t)/6e4);return m<1?'همین الان':m<60?fm(m)+' دقیقه پیش':m<1440?fm(Math.round(m/60))+' ساعت پیش':fm(Math.round(m/1440))+' روز پیش'}
+function bigChart(ps){if(ps.length<2)return '<div class="mut" style="text-align:center;padding:18px">برای نمودار حداقل دو بار ثبت قیمت لازم است</div>';
+ var a=ps.map(function(x){return x.p}),mn=Math.min.apply(0,a),mx=Math.max.apply(0,a),r=mx-mn||1,q=a.map(function(y,i){return [10+i/(a.length-1)*300,100-(y-mn)/r*80]}),ln=q.map(function(z){return z[0].toFixed(1)+','+z[1].toFixed(1)}).join(' '),e=q[q.length-1];
+ return '<svg class="bc" viewBox="0 0 320 120"><defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--acc)" stop-opacity=".35"/><stop offset="1" stop-color="var(--acc)" stop-opacity="0"/></linearGradient></defs><polygon points="10,110 '+ln+' 310,110" fill="url(#gr)"/><polyline pathLength="1" stroke-dasharray="1" points="'+ln+'" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="'+e[0]+'" cy="'+e[1]+'" r="4.5" fill="var(--acc)"/></svg>'}
+function openDetail(id){var s=Sh(id);if(!s)return;var ps=s.prices,a=ps.map(function(x){return x.p}),L=a.length?a[a.length-1]:null,f=a.length?a[0]:null,av=a.length?Math.round(a.reduce(function(x,y){return x+y},0)/a.length):null,pc=f&&L!=null?(L-f)/f*100:0,
+ st=function(t,v){return '<div><small>'+t+'</small><b>'+(v==null?'—':fm(v))+'</b></div>'};
+ document.getElementById('pd-body').innerHTML='<div class="pd-h"><div><h3 style="margin:0">'+esc(s.name)+'</h3><div class="mut">'+(s.chk?'بروزرسانی '+ago(s.chk):'ثبت دستی')+'</div></div><button class="x" data-a="pdclose" aria-label="بستن">✕</button></div><div class="row" style="margin-top:10px"><span class="big">'+(L!=null?fm(L):'—')+'</span><span class="mut">تومان</span>'+(a.length>1?'<span class="pill'+(pc<=0?' dn':'')+'">'+(pc>0?'+':'')+fm(pc.toFixed(1))+'٪ از اولین ثبت</span>':'')+'</div>'+bigChart(ps)+'<div class="pd-st">'+st('کمترین',a.length?Math.min.apply(0,a):null)+st('بیشترین',a.length?Math.max.apply(0,a):null)+st('میانگین',av)+st('اولین قیمت',f)+'</div><div class="pd-l">'+ps.slice(-8).reverse().map(function(x){return '<div><span>'+pf({month:'long',day:'numeric'},x.d)+'</span><b>'+fm(x.p)+'</b></div>'}).join('')+'</div><div class="row" style="margin-top:14px">'+((s.dk||s.url)?'<button class="pb acc" data-a="refresh1" data-id="'+s.id+'">بروزرسانی قیمت</button>':'')+(s.url?'<a class="pb" style="text-decoration:none;color:var(--shell)" href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer">باز کردن فروشگاه</a>':'')+'</div>';
+ var d=document.getElementById('pd');if(!d.open)d.showModal();if(window.gsap&&!RM)gsap.from('#pd .bc polyline',{strokeDashoffset:1,duration:1,ease:'power2.out'})}
+async function refreshOne(id){var s=Sh(id);if(!s)return;try{var p=await getPrice(s),td=iso(new Date()),l=s.prices[s.prices.length-1],old=l?l.p:null;if(l&&l.d===td)l.p=p;else s.prices.push({d:td,p:p});s.chk=Date.now();save();render();openDetail(id);toast(old!=null&&old!==p?(p>old?'گران‌تر شد ▲':'ارزان‌تر شد ▼'):'قیمت بروز شد ✓')}catch(e){toast('خواندن خودکار قیمت ممکن نشد؛ دستی ثبت کن','err')}}
+A.detail=function(e){openDetail(e.dataset.id);return false};
+A.pdclose=function(){document.getElementById('pd').close();return false};
+A.refresh1=function(e){refreshOne(e.dataset.id);return false};
+A.export=function(){var b=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='varagh-backup-'+iso(new Date())+'.json';a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},4e3);toast('فایل پشتیبان ساخته شد ✓');return false};
+A.import=function(){document.getElementById('imp').click();return false};
+document.getElementById('imp').addEventListener('change',function(ev){var f=ev.target.files[0];ev.target.value='';if(!f)return;var r=new FileReader();r.onload=function(){try{var d=JSON.parse(r.result);if(!d||typeof d!=='object'||!(d.tasks||d.shop||d.proj))throw 0;ask('اطلاعات فعلی با فایل پشتیبان جایگزین شود؟','جایگزین کن').then(function(ok){if(!ok)return;S={tasks:d.tasks||{},shop:d.shop||[],proj:d.proj||[]};S.proj.forEach(function(x){x.fu=x.fu||[]});S.shop.forEach(function(x){x.prices=x.prices||[]});save();render();toast('بازگردانی انجام شد ✓')})}catch(e){toast('فایل پشتیبان معتبر نیست','err')}};r.readAsText(f)});
+document.getElementById('pd').addEventListener('click',function(e){if(e.target.id==='pd')this.close()});
+document.addEventListener('visibilitychange',function(){if(!document.hidden&&currentUser)refreshAll(false)});
+document.addEventListener('keydown',function(e){if((e.key==='/'&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)||(e.ctrlKey||e.metaKey)&&e.key==='k')&&!document.getElementById('shell').hidden){e.preventDefault();document.getElementById('q').focus()}});
 
 start();
 </script>
